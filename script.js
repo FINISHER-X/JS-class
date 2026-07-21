@@ -41,3 +41,34 @@ document.addEventListener("keydown", (event) => {
         event.preventDefault();
     }
 });
+
+// Hamburger / mobile nav behavior
+const hamburger = document.querySelector('.hamburger');
+const mobileNav = document.querySelector('.mobile-nav');
+
+if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', () => {
+        const isOpen = hamburger.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen);
+        mobileNav.classList.toggle('open');
+        mobileNav.setAttribute('aria-hidden', !isOpen);
+    });
+
+    mobileNav.addEventListener('click', (e) => {
+        if (e.target.classList.contains('nav-link')) {
+            hamburger.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', false);
+            mobileNav.classList.remove('open');
+            mobileNav.setAttribute('aria-hidden', true);
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            hamburger.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', false);
+            mobileNav.classList.remove('open');
+            mobileNav.setAttribute('aria-hidden', true);
+        }
+    });
+}
